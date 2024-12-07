@@ -10,19 +10,6 @@ export const MyStorage = {
   },
 };
 
-// function groupByDays(today, blocks) {
-//   const oldest = oldestDate(blocks, today);
-//   const dates = dateRange(oldest, today).map(YYYYMMDD).toReversed();
-//   return dates.map((date) => {
-//     return {
-//       date,
-//       blocks: blocks
-//         .filter(([blockDate]) => blockDate === date)
-//         .map(blockObject),
-//     };
-//   });
-// }
-
 export function compress(schedule) {
   return schedule.map(({ date, blocks }) => [
     date,

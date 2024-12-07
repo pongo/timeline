@@ -1,5 +1,10 @@
 import { ref, onUnmounted, readonly } from "vue";
-import { dateRange, getMinutesBetweenDates, YYYYMMDD } from "./core.js";
+import {
+  dateRange,
+  getMinutesBetweenDates,
+  YYYYMMDD,
+  midnightOf,
+} from "./date.js";
 
 const MINUTES_LIMIT = 24 * 60;
 
@@ -162,12 +167,6 @@ function stopMultiDaysBlock(schedule, activeBlock, startDate, endDate) {
   );
 
   return schedule;
-}
-
-function midnightOf(endDate) {
-  const midnight = new Date(endDate);
-  midnight.setHours(0, 0, 0, 0);
-  return midnight;
 }
 
 function minutesBetween(startDate, endDate, max) {
