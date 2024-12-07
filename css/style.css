@@ -1,0 +1,22 @@
+@import url("schedule.css");
+@import url("schedule-overlay.css");
+
+:root {
+  --day-label-width: 100px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}

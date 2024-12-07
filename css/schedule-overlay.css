@@ -1,0 +1,18 @@
+.schedule-overlay {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1 !important;
+  pointer-events: none;
+  grid-auto-rows: unset;
+}
+
+.schedule-header--overlay {
+  border-left: 1px solid #ddd;
+  pointer-events: none;
+}
+
+.schedule-header--overlay:last-of-type {
+  border-right: 1px solid #ddd;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>График с точностью до минут</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .schedule {
+            display: grid;
+            grid-template-columns: 100px repeat(288, 1fr); /* 288 колонок по 5 минут */
+            grid-auto-rows: 30px;
+            gap: 1px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .schedule div {
+            text-align: center;
+            line-height: 30px;
+            font-size: 12px;
+        }
+
+        /* Время по горизонтали */
+        .time {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        /* Метки дней */
+        .day-label {
+            background-color: #f1f1f1;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        /* Ячейки активности */
+        .block {
+            background-color: blue;
+            border-radius: 4px;
+        }
+
+        .block.green {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule">
+        <!-- Верхняя строка с часами -->
+        <div></div>
+        <!-- Часы размечены каждые 12 колонок (60 минут ÷ 5 минут = 12 колонок) -->
+        <div class="time" style="grid-column: span 12;">0:00</div>
+        <div class="time" style="grid-column: span 12;">1:00</div>
+        <div class="time" style="grid-column: span 12;">2:00</div>
+        <div class="time" style="grid-column: span 12;">3:00</div>
+        <div class="time" style="grid-column: span 12;">4:00</div>
+        <div class="time" style="grid-column: span 12;">5:00</div>
+        <div class="time" style="grid-column: span 12;">6:00</div>
+        <div class="time" style="grid-column: span 12;">7:00</div>
+        <div class="time" style="grid-column: span 12;">8:00</div>
+        <div class="time" style="grid-column: span 12;">9:00</div>
+        <div class="time" style="grid-column: span 12;">10:00</div>
+        <div class="time" style="grid-column: span 12;">11:00</div>
+        <div class="time" style="grid-column: span 12;">12:00</div>
+        <div class="time" style="grid-column: span 12;">13:00</div>
+        <div class="time" style="grid-column: span 12;">14:00</div>
+        <div class="time" style="grid-column: span 12;">15:00</div>
+        <div class="time" style="grid-column: span 12;">16:00</div>
+        <div class="time" style="grid-column: span 12;">17:00</div>
+        <div class="time" style="grid-column: span 12;">18:00</div>
+        <div class="time" style="grid-column: span 12;">19:00</div>
+        <div class="time" style="grid-column: span 12;">20:00</div>
+        <div class="time" style="grid-column: span 12;">21:00</div>
+        <div class="time" style="grid-column: span 12;">22:00</div>
+        <div class="time" style="grid-column: span 12;">23:00</div>
+        <!-- и так далее -->
+
+        <!-- Пример строки -->
+        <div class="day-label">Сегодня</div>
+        <!-- Пример: блок с 10:18 до 10:50 -->
+        <div class="block" style="grid-column: 123 / 130;"></div> <!-- 10:18 -> колонка 123, 10:50 -> колонка 130 -->
+
+        <!-- Пример: блок с 15:00 до 16:30 -->
+        <div class="block green" style="grid-column: 181 / 210;"></div>
+    </div>
+</body>
+</html>

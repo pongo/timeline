@@ -1,0 +1,16 @@
+{
+  "name": "pongo-timeline",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^3.5.13"
+  }
+}

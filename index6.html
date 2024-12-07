@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>График с полосами</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+        }
+
+        .schedule {
+            display: grid;
+            grid-template-columns: 60px repeat(1440, 1fr); /* 1440 минут в сутках */
+            grid-auto-rows: 30px;
+            gap: 0; /* Убираем зазоры, чтобы линии смотрелись как единое полотно */
+            border: 1px solid #ddd;
+            position: relative;
+        }
+
+        .schedule div {
+            text-align: center;
+            line-height: 30px;
+            font-size: 12px;
+        }
+
+        /* Время по горизонтали */
+        .time {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        /* Метки дней */
+        .day-label {
+            background-color: #f1f1f1;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        /* Ячейки активности */
+        .block {
+            background-color: blue;
+            border-radius: 4px;
+        }
+
+        .block.green {
+            background-color: green;
+        }
+
+        .block.pink {
+            background-color: pink;
+        }
+
+        /* Вертикальные линии (каждый час) */
+        .schedule::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 60px; /* Сдвиг для меток времени */
+            height: 100%;
+            width: calc(100% - 60px); /* Сетка за вычетом меток времени */
+            background: repeating-linear-gradient(
+                to right,
+                transparent,
+                transparent 59px, /* 59px пропуск */
+                #ddd 60px /* Полоса шириной 1px */
+            );
+            z-index: 1; /* Помещаем линии ниже содержимого */
+            pointer-events: none; /* Линии не мешают взаимодействию */
+        }
+
+        /* Горизонтальные линии (каждая строка) */
+        .schedule > .day-label {
+            border-top: 1px solid #ddd; /* Разделение по дням */
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule">
+        <!-- Верхняя строка с часами -->
+        <div></div>
+        <div class="time" style="grid-column: span 60;">0:00</div>
+        <div class="time" style="grid-column: span 60;">1:00</div>
+        <div class="time" style="grid-column: span 60;">2:00</div>
+        <div class="time" style="grid-column: span 60;">3:00</div>
+        <div class="time" style="grid-column: span 60;">4:00</div>
+        <div class="time" style="grid-column: span 60;">5:00</div>
+        <!-- и так далее до 23:00 -->
+
+        <!-- Сегодня -->
+        <div class="day-label" style="grid-column: 1 / -1;">Сегодня</div>
+        <div class="block" style="grid-column: 618 / 650;"></div> <!-- 10:18 - 10:50 -->
+        <div class="block green" style="grid-column: 930 / 960;"></div> <!-- 15:30 - 16:00 -->
+
+        <!-- Вчера -->
+        <div class="day-label" style="grid-column: 1 / -1;">Вчера</div> <!-- Переносится на новую строку -->
+        <div class="block pink" style="grid-column: 1365 / 1395;"></div> <!-- 22:45 - 23:15 -->
+    </div>
+</body>
+</html>

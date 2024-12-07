@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>График</title>
+    <style>
+        .schedule {
+            display: grid;
+            grid-template-columns: repeat(24, 1fr);
+            grid-template-rows: repeat(12, auto);
+            gap: 2px;
+        }
+        .time, .day {
+            text-align: center;
+            font-size: 12px;
+            border: 1px solid #ccc;
+        }
+        .block {
+            grid-column: span 2; /* Количество часов */
+            background-color: blue; /* Цвет */
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule">
+        <!-- Временные метки -->
+        <div class="time">0:00</div>
+        <div class="time">2:00</div>
+        <!-- и так далее -->
+        
+        <!-- Пример строки -->
+        <div class="day">Сегодня</div>
+        <div class="block" style="grid-column: 10 / span 2;"></div>
+    </div>
+</body>
+</html>

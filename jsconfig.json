@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "jsx": "preserve",
+    "checkJs": true,
+    "skipLibCheck": true,
+    "isolatedModules": true
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
+}
