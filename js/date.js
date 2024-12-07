@@ -31,8 +31,8 @@ export function getMinutesBetweenDates(startDate, endDate) {
   return Math.round(diff / 60_000);
 }
 
-export function midnightOf(endDate) {
-  const midnight = new Date(endDate);
+export function midnightOf(date) {
+  const midnight = new Date(date);
   midnight.setHours(0, 0, 0, 0);
   return midnight;
 }

@@ -36,10 +36,16 @@ createApp({
         this.start();
       }
     },
+    formatBlockTitle({ duration, startHour, startMinute }) {
+      const hh = startHour.toString().padStart(2, "0");
+      const mm = startMinute.toString().padStart(2, "0");
+      return `${duration}m, ${hh}:${mm}`;
+    },
   },
   mounted() {
     window.addEventListener("keyup", (event) => {
       if (event.code === "Space") {
+        event.preventDefault();
         return void this.toggle();
       }
     });

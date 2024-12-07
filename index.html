@@ -11,15 +11,18 @@
       }
     </style>
     <link rel="stylesheet" href="css/style.css" />
-    <!-- "vue": "https://unpkg.com/vue@3.5.13/dist/vue.esm-browser.prod.js" -->
+    <!-- 
+      "vue": "https://unpkg.com/vue@3.5.13/dist/vue.esm-browser.js"
+      "vue": "https://unpkg.com/vue@3.5.13/dist/vue.esm-browser.prod.js" 
+     -->
     <script type="importmap">
       {
         "imports": {
-          "vue": "https://unpkg.com/vue@3.5.13/dist/vue.esm-browser.js"
+          "vue": "https://unpkg.com/vue@3.5.13/dist/vue.esm-browser.prod.js"
         }
       }
     </script>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </head>
   <body>
     <main id="app" v-cloak>
@@ -48,17 +51,9 @@
               '--start-minute': block.startMinute,
               '--duration': block.duration,
             }"
-            :title="`${block.duration}m, ${block.startHour.toString().padStart(2, '0')}:${block.startMinute.toString().padStart(2, '0')}`"
+            :title="formatBlockTitle(block)"
           ></div>
         </template>
-
-        <!-- <div class="day-label">2024-12-04</div>
-        <div
-          class="time-block"
-          style="--start-hour: 10; --start-minute: 0; --duration: 25"
-        ></div>
-
-        <div class="day-label">2024-12-03</div> -->
 
         <div class="schedule-base schedule-overlay">
           <div class="day-label"></div>
