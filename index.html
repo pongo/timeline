@@ -44,7 +44,8 @@
             v-for="block in day.blocks"
             :class="{
               'time-block': true,
-              'time-block--active': block.active,
+              'active': block.active,
+              'left-overlap': block.leftOverlap,
             }"
             :style="{
               '--start-hour': block.startHour,

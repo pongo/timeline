@@ -7,13 +7,33 @@ describe("compressor", () => {
     {
       date: "2024-12-02",
       blocks: [
-        { active: false, duration: 25, startHour: 10, startMinute: 0 },
-        { active: false, duration: 25, startHour: 10, startMinute: 30 },
+        {
+          active: false,
+          duration: 25,
+          startHour: 10,
+          startMinute: 0,
+          leftOverlap: false,
+        },
+        {
+          active: false,
+          duration: 25,
+          startHour: 10,
+          startMinute: 30,
+          leftOverlap: false,
+        },
       ],
     },
     {
       date: "2024-12-01",
-      blocks: [{ active: false, duration: 60, startHour: 18, startMinute: 14 }],
+      blocks: [
+        {
+          active: false,
+          duration: 60,
+          startHour: 18,
+          startMinute: 14,
+          leftOverlap: false,
+        },
+      ],
     },
   ];
 

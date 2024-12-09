@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  hasLeftOverlap,
   startNewBlock,
   stopActiveBlock,
   updateActiveBlock,
@@ -14,7 +15,13 @@ describe("startNewBlock", () => {
         {
           date: "2024-12-04",
           blocks: [
-            { active: true, duration: 0, startHour: 10, startMinute: 30 },
+            {
+              active: true,
+              duration: 0,
+              startHour: 10,
+              startMinute: 30,
+              leftOverlap: false,
+            },
           ],
         },
       ]);
@@ -27,7 +34,13 @@ describe("startNewBlock", () => {
         {
           date: "2024-12-04",
           blocks: [
-            { active: false, duration: 25, startHour: 10, startMinute: 0 },
+            {
+              active: false,
+              duration: 25,
+              startHour: 10,
+              startMinute: 0,
+              leftOverlap: false,
+            },
           ],
         },
       ];
@@ -36,13 +49,64 @@ describe("startNewBlock", () => {
         {
           date: "2024-12-04",
           blocks: [
-            { active: false, duration: 25, startHour: 10, startMinute: 0 },
-            { active: true, duration: 0, startHour: 10, startMinute: 30 },
+            {
+              active: false,
+              duration: 25,
+              startHour: 10,
+              startMinute: 0,
+              leftOverlap: false,
+            },
+            {
+              active: true,
+              duration: 0,
+              startHour: 10,
+              startMinute: 30,
+              leftOverlap: false,
+            },
           ],
         },
       ]);
       assert.notEqual(actual, schedule, "should not mutate original");
       assert.notDeepEqual(actual, schedule, "should not mutate original");
+    });
+
+    it("should check left overlaps for blocks", () => {
+      const schedule = [
+        {
+          date: "2024-12-04",
+          blocks: [
+            {
+              active: false,
+              duration: 25,
+              startHour: 10,
+              startMinute: 0,
+              leftOverlap: false,
+            },
+          ],
+        },
+      ];
+      const actual = startNewBlock(schedule, new Date("2024-12-04 10:25:00"));
+      assert.deepEqual(actual, [
+        {
+          date: "2024-12-04",
+          blocks: [
+            {
+              active: false,
+              duration: 25,
+              startHour: 10,
+              startMinute: 0,
+              leftOverlap: false,
+            },
+            {
+              active: true,
+              duration: 0,
+              startHour: 10,
+              startMinute: 25,
+              leftOverlap: true,
+            },
+          ],
+        },
+      ]);
     });
   });
 
@@ -56,7 +120,13 @@ describe("startNewBlock", () => {
         {
           date: "2024-12-04",
           blocks: [
-            { active: true, duration: 0, startHour: 10, startMinute: 30 },
+            {
+              active: true,
+              duration: 0,
+              startHour: 10,
+              startMinute: 30,
+              leftOverlap: false,
+            },
           ],
         },
         { date: "2024-12-03", blocks: [] },
@@ -73,8 +143,20 @@ describe("updateActiveBlock", () => {
       {
         date: "2024-12-04",
         blocks: [
-          { active: false, duration: 25, startHour: 10, startMinute: 0 },
-          { active: true, duration: 0, startHour: 10, startMinute: 30 },
+          {
+            active: false,
+            duration: 25,
+            startHour: 10,
+            startMinute: 0,
+            leftOverlap: false,
+          },
+          {
+            active: true,
+            duration: 0,
+            startHour: 10,
+            startMinute: 30,
+            leftOverlap: false,
+          },
         ],
       },
     ];
@@ -83,8 +165,20 @@ describe("updateActiveBlock", () => {
       {
         date: "2024-12-04",
         blocks: [
-          { active: false, duration: 25, startHour: 10, startMinute: 0 },
-          { active: true, duration: 30, startHour: 10, startMinute: 30 },
+          {
+            active: false,
+            duration: 25,
+            startHour: 10,
+            startMinute: 0,
+            leftOverlap: false,
+          },
+          {
+            active: true,
+            duration: 30,
+            startHour: 10,
+            startMinute: 30,
+            leftOverlap: false,
+          },
         ],
       },
     ]);
@@ -104,7 +198,13 @@ describe("updateActiveBlock", () => {
       {
         date: "2024-12-04",
         blocks: [
-          { active: false, duration: 25, startHour: 10, startMinute: 0 },
+          {
+            active: false,
+            duration: 25,
+            startHour: 10,
+            startMinute: 0,
+            leftOverlap: false,
+          },
         ],
       },
     ];
@@ -120,7 +220,13 @@ describe("stopActiveBlock", () => {
         {
           date: "2024-12-04",
           blocks: [
-            { active: true, duration: 0, startHour: 10, startMinute: 30 },
+            {
+              active: true,
+              duration: 0,
+              startHour: 10,
+              startMinute: 30,
+              leftOverlap: false,
+            },
           ],
         },
       ];
@@ -134,6 +240,7 @@ describe("stopActiveBlock", () => {
               duration: 15,
               startHour: 10,
               startMinute: 30,
+              leftOverlap: false,
             },
           ],
         },
@@ -146,7 +253,13 @@ describe("stopActiveBlock", () => {
       const schedule = [
         {
           blocks: [
-            { active: true, duration: 0, startHour: 22, startMinute: 30 },
+            {
+              active: true,
+              duration: 0,
+              startHour: 22,
+              startMinute: 30,
+              leftOverlap: false,
+            },
           ],
           date: "2024-12-04",
         },
@@ -161,6 +274,7 @@ describe("stopActiveBlock", () => {
               duration: 60 + 23,
               startHour: 0,
               startMinute: 0,
+              leftOverlap: false,
             },
           ],
         },
@@ -172,10 +286,37 @@ describe("stopActiveBlock", () => {
               duration: 60 + 30,
               startHour: 22,
               startMinute: 30,
+              leftOverlap: false,
             },
           ],
         },
       ]);
     });
+  });
+});
+
+describe("hasLeftOverlap", () => {
+  it("should check left overlaps for blocks", () => {
+    const blockA = { startHour: 10, startMinute: 0, duration: 25 };
+
+    assert.equal(hasLeftOverlap(undefined, blockA), false, "no left");
+
+    assert.equal(
+      hasLeftOverlap(blockA, { startHour: 10, startMinute: 25, duration: 25 }),
+      true,
+      "duration 0"
+    );
+
+    assert.equal(
+      hasLeftOverlap(blockA, { startHour: 10, startMinute: 24, duration: 25 }),
+      true,
+      "duration -1"
+    );
+
+    assert.equal(
+      hasLeftOverlap(blockA, { startHour: 10, startMinute: 26, duration: 25 }),
+      false,
+      "duration 1"
+    );
   });
 });

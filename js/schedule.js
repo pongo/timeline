@@ -51,14 +51,28 @@ export function startNewBlock(schedule, startDate) {
   const newSchedule = addMissingDays(schedule, date);
 
   const day = newSchedule.find((day) => day.date === date);
+
+  const lastBlock = day.blocks.at(-1);
+  const startHour = startDate.getHours();
+  const startMinute = startDate.getMinutes();
+
   day.blocks.push({
     active: true,
-    startHour: startDate.getHours(),
-    startMinute: startDate.getMinutes(),
+    startHour: startHour,
+    startMinute: startMinute,
     duration: 0,
+    leftOverlap: hasLeftOverlap(lastBlock, { startHour, startMinute }),
   });
 
   return newSchedule;
+}
+
+export function hasLeftOverlap(a, b) {
+  if (a === undefined) return false;
+  const bStart = b.startHour * 60 + b.startMinute;
+  const aEnd = a.startHour * 60 + a.startMinute + a.duration;
+  const difference = bStart - aEnd;
+  return difference < 1;
 }
 
 function addMissingDays(schedule, date) {
@@ -156,7 +170,15 @@ function stopMultiDaysBlock(schedule, activeBlock, startDate, endDate) {
   // add block on next day
   schedule.unshift({
     date: YYYYMMDD(midnight),
-    blocks: [{ active: true, startHour: 0, startMinute: 0, duration: 0 }],
+    blocks: [
+      {
+        active: true,
+        startHour: 0,
+        startMinute: 0,
+        duration: 0,
+        leftOverlap: false,
+      },
+    ],
   });
   const nextDayActiveBlock = findActiveBlock(schedule).activeBlock;
   schedule = stopOrDeleteActiveBlock(

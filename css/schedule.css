@@ -35,7 +35,7 @@
 
 .time-block {
   --start: calc((var(--start-hour) * 60) + var(--start-minute));
-  background-color: blue;
+  /* background-color: blue; */
   background-color: #9e9e9e;
   /* background-color: black; */
   display: inline-grid;
@@ -45,7 +45,15 @@
   z-index: 10;
 }
 
-.time-block.time-block--active {
-  background-color: green;
+.time-block.active {
+  /* background-color: green; */
   background-color: red;
+}
+
+.time-block.left-overlap {
+  border-left: 1px solid #bdbdbd;
+}
+
+.time-block.active.left-overlap {
+  border-left-color: red;
 }
