@@ -38,7 +38,7 @@
 
         <div v-for="h in 24" class="schedule-header">{{ h - 1 }}:00</div>
 
-        <template v-for="day in schedule">
+        <template v-for="day, index in schedule">
           <div class="day-label">{{ day.date }}</div>
           <div
             v-for="block in day.blocks"
@@ -50,6 +50,7 @@
               '--start-hour': block.startHour,
               '--start-minute': block.startMinute,
               '--duration': block.duration,
+              'grid-row': index + 2,
             }"
             :title="formatBlockTitle(block)"
           ></div>
