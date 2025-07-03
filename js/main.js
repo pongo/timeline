@@ -9,12 +9,7 @@ const favicons = useFavicon();
 function useFavicon() {
   const mainFavicons = [/* "2311057.png", */ "2311254.png"];
 
-  const activeFavicons = [
-    "2311057_red.png",
-    "2311254_red.png",
-    // "2496923.png",
-    "red.png",
-  ];
+  const activeFavicons = ["2311057_red.png", "2311254_red.png", "red.png"];
 
   const mainFavicon = chooseRandom(mainFavicons);
   changeFavicon(mainFavicon);
@@ -82,7 +77,7 @@ createApp({
     },
   },
   mounted() {
-    window.addEventListener("keyup", (event) => {
+    window.addEventListener("keydown", (event) => {
       if (event.code === "Space") {
         event.preventDefault();
         return void this.toggle();

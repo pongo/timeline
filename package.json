@@ -5,6 +5,7 @@
   "type": "module",
   "main": "main.js",
   "scripts": {
+    "dev": "devd -l .",
     "test": "node --test"
   },
   "keywords": [],

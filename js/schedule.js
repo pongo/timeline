@@ -1,4 +1,4 @@
-import { ref, onUnmounted, readonly } from "vue";
+import { ref, shallowRef, onUnmounted, readonly } from "vue";
 import {
   dateRange,
   getMinutesBetweenDates,
@@ -12,7 +12,7 @@ export function useSchedule(today, inputSchedule) {
   let clearId = null;
   let scheduleRaw = addMissingDays(inputSchedule, today);
 
-  const schedule = ref(scheduleRaw);
+  const schedule = shallowRef(scheduleRaw);
   const isActive = ref(false);
   const activeDuration = ref(null);
 
